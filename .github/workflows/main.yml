@@ -1,0 +1,26 @@
+name: Petri Health Evaluation
+
+on:
+  workflow_dispatch:   # THIS enables the "Run workflow" button
+  push:
+
+jobs:
+  run-eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Run Petri Health evaluation
+        run: |
+          python -m petri_health.evaluation.batch_eval
