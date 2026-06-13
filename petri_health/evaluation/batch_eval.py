@@ -33,7 +33,7 @@ def evaluate_scenario(scenario):
 
 
 def run():
-    with open("datasets/v1_scenarios.json", "r") as f:
+    with open("datasets/v0.1_scenarios.json", "r") as f:
         scenarios = json.load(f)
 
     results = [evaluate_scenario(s) for s in scenarios]
