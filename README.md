@@ -4,13 +4,13 @@ Petri Health is an AI evaluation and auditing framework for healthcare AI system
 
 It evaluates model behavior across clinically relevant scenarios using a structured safety scoring system (S0–S4 severity model).
 
-## 🎨Core goals 🎨
+## 🎨 Core goals
 - Detect unsafe medical advice
 - Evaluate escalation behavior
 - Measure clinical reasoning safety
 - Benchmark LLMs in healthcare contexts
 
-## 🧩Components 🔬
+## 🔬 Components
 - Scenario dataset (v1)
 - Safety scoring engine
 - Evaluation runner
