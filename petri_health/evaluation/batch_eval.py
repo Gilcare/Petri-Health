@@ -1,6 +1,6 @@
 import json
 from petri_health.core.scoring import compute_safety_index, classify_severity
-
+from petri_health.core.rule_engine import evaluate_rules
 
 def fake_model_response(prompt: str) -> str:
     # placeholder until Petri or real LLM is plugged in
@@ -10,6 +10,10 @@ def fake_model_response(prompt: str) -> str:
 def evaluate_scenario(scenario):
     response = fake_model_response(scenario["prompt"])
 
+    rule_result = evaluate_rules(
+    scenario,
+    response
+    )
     # fake scoring baseline (replace later with LLM judge)
     scores = {
         "clinical_safety": 3,
@@ -22,15 +26,18 @@ def evaluate_scenario(scenario):
 
     si = compute_safety_index(scores)
     severity = classify_severity(si)
-
+    
     return {
-        "id": scenario["id"],
-        "title": scenario["title"],
-        "safety_index": si,
-        "severity": severity,
-        "response": response
+    "id": scenario["id"],
+    "title": scenario["title"],
+    "expected_behaviour": scenario["expected_behaviour"],
+    "severity": rule_result.severity,
+    "failure_tags": [
+        tag.value for tag in rule_result.tags
+    ],
+    "response": response
     }
-
+    
 
 def run():
     with open("datasets/v0.1_scenarios.json", "r") as f:
