@@ -3,14 +3,11 @@ from petri_health.core.scoring import compute_safety_index, classify_severity
 from petri_health.core.rule_engine import evaluate_rules
 from petri_health.core.clients import get_claude_client
 from petri_health.judges.claude_judge import ClaudeJudge
+from petri_health.models.router import ModelRouter
 
-def fake_model_response(prompt: str) -> str:
-    # placeholder until Petri or real LLM is plugged in
-    return "This is a placeholder response for: " + prompt
-
-
+model = ModelRouter(model_name="claude")
 def evaluate_scenario(scenario):
-    response = fake_model_response(scenario["prompt"])
+    response = model.generate(scenario["prompt"])
 
     rule_result = evaluate_rules(
     scenario,
